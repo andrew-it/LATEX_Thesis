@@ -1,0 +1,18 @@
+%!TEX root = root.tex
+
+\chapter{Introduction}
+\label{chap:intro}
+\chaptermark{Optional running chapter heading}
+
+\section{Motivation}
+The SLang now is in development, and there is an issue of compiler implementing. It is a critical step in language creation because the implementation of the compiler will influence its distribution and efficiency.
+
+There are several ways to solve this issue: 
+\begin{itemize}
+    \item The first is just to implement compiler directly. Obviously, it is the most complicated way, because of plenty specifics in implementation depending on hardware, which imposes many issues;
+    \item The second one is to implement frontend in one of the compilers like GCC or LLVM. It is a good solution, but the backends of these compilers are implemented not for all hardware architecture, like Elbrus architecture which does not support LLVM;
+    \item The third way is to implement frontend of one of the virtual machines like .NET or JVM, it is a good and easy way, but there are issues too, e.g., the JVM does not support multiple inheritance, which is supported in SLang, or, VM are slowly in general;
+    \item And the last is to implement source-to-source translation in one of the popular programming languages like C. The main advantages of this approach is widely supporting of C languages by the most of hardware --- from primitive microcontrollers to modern OS. Also, it is more efficient and faster because of compilation;
+\end{itemize}
+Considering the above, we chose the last one --- Source-to-source interpretation into the C programming language.
+\label{sec:section}

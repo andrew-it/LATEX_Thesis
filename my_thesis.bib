@@ -1,0 +1,198 @@
+@inproceedings{Lossing2016,
+abstract = {Optimizations, transformations and anal- yses are applied to programs by compilers at the inter- mediate representation level, which usually does not include explicit variable declarations. This description level is fine for middle-ends and for source-to-source optimizers of simple languages. Meanwhile, the C lan- guage has become much more flexible since the C99 standard, and let variable and type declarations appear almost anywhere in source code. We present in this paper a new concept to manage C99 declarations in a source-to-source compiler: the Effects Dependence Graph, which is an extension of the classical Data Dependence Graph. It deals partic- ularly efficiently with user-defined type declarations or dependent types like Variable-Length Array. It is also interesting because no legal scheduling transformation is hindered and because existing algorithms are either not or slightly modified. Finally it reduces the need for variable, struct and array privatization or live range analyses in automatic parallelizers. To the best of our knowledge, the declaration issue is ignored in the literature: existin/Users/andrejermak/Desktop/Innopolis_4rd course/Thesis/Literature_overview/My_Collection.bibg C source-to-source compilers either do not support C99, or accept only re- stricted portions of code, and production compilers use low-level intermediate representations, possibly with annotations. In this way our solution addresses a wider range},
+annote = {},
+author = {Lossing, Nelson and Guillou, Pierre and Irigoin, Francois},
+booktitle = {Proceedings - 2016 IEEE 16th International Working Conference on Source Code Analysis and Manipulation, SCAM 2016},
+doi = {10.1109/SCAM.2016.20},
+file = {:Users/andrejermak/Library/Application Support/Mendeley Desktop/Downloaded/Lossing, Guillou, Irigoin - 2016 - Effects dependence graph A key data concept for c source-to-source compilers.pdf:pdf},
+isbn = {9781509038503},
+keywords = {C Language,Data Dependence Graph,Declaration Scheduling,Source-to-Source Compiler},
+pages = {167--176},
+title = {{Effects dependence graph: A key data concept for c source-to-source compilers}},
+year = {2016}
+}
+@article{Click1995,
+abstract = {We present a graph-based intermediate representation (IR) with simple semantics and a low-memory-cost C++ implementation. The IR uses a directed graph with labeled vertices and ordered inputs but unordered outputs. Vertices are labeled with opcodes, edges are unlabeled. We represent the CFG and basic blocks with the same vertex and edge structures. Each opcode is defined by a C++ class that encapsulates opcode-specific data and behavior. We use inheritance to abstract common opcode behavior, allowing new opcodes to be easily defined from old ones. The resulting IR is simple, fast and easy to use.},
+annote = {In this paper authors try to create a light-weight graph-based IR, using C++.
+SSA -- Static Single As- signment (SSA)
+CFG -- Control-Flow Graph},
+author = {Click, Cliff and Paleczny, Michael},
+doi = {10.1145/202530.202534},
+file = {:Users/andrejermak/Downloads/click1995.pdf:pdf},
+isbn = {0897917545},
+issn = {03621340},
+journal = {ACM SIGPLAN Notices},
+number = {3},
+pages = {35--49},
+title = {{A simple graph-based intermediate representation}},
+volume = {30},
+year = {1995}
+}
+@inproceedings{Trudel2012,
+abstract = {C2Eiffel is a fully automatic source-to-source translator of C applications into the Eiffel object-oriented programming language. C2Eiffel supports the complete C language, including function pointers, unrestricted pointer arithmetic and jumps, arbitrary native libraries, and inlined assembly code. It produces readable Eiffel code that behaves as the source C application, it takes advantage of some of Eiffel's object-oriented features to produce translations that are easy to maintain and debug, and often even safer than their sources thanks to stricter correctness checks introduced automatically. Experiments show that C2Eiffel handles C applications of significant size (such as vim and libgsl), it is a fully automatic tool suitable to reuse C code within a high-level object-oriented programming language.},
+annote = {},
+author = {Trudel, Marco and Furia, Carlo A and Nordio, Martin},
+booktitle = {Proceedings - Working Conference on Reverse Engineering, WCRE},
+doi = {10.1109/WCRE.2012.60},
+file = {:Users/andrejermak/Downloads/wcre12-tool.pdf:pdf},
+isbn = {9780769548913},
+issn = {10951350},
+pages = {501--502},
+title = {{Automatic C to O-O translation with C2Eiffel}},
+year = {2012}
+}
+@inproceedings{Suda2017,
+abstract = {The Xevolver framework is a code transformation framework for supporting evolutional modifications of high performance computing codes. This paper introduces a set of software modules that facilitates administrative tasks about multiple code transformations on multiple source codes. We call this set of software modules the xevdriver, because it drives transformations using Xevolver framework. First, xevdriver provides an abstract view of temporary files. Parsing and unparsing between Fortran and XML are done automatically, and the user do not have to keep track of temporary file names during a series of applications of code transformations. Second, xevdriver also provides an abstract view of combinations of transformations. Xevdriver provides a script language, in which users can define combinations of code transformations as procedures. Third, the logging functions and a log-viewer are provided in accordance with the above abstractions. Users can check how the source codes are transformed on the log-viewer from the high level abstractions of code transformation procedures, and can inspect the intermediate results down into an arbitrary level of concreteness of the implementations of transformations. Our toolset will help development, management and applications of complex code transformations based on Xevolver framework.},
+annote = {},
+author = {Suda, Reiji and Takizawa, Hiroyuki},
+booktitle = {Proceedings - 2016 4th International Symposium on Computing and Networking, CANDAR 2016},
+doi = {10.1109/CANDAR.2016.113},
+file = {:Users/andrejermak/Downloads/suda2016.pdf:pdf},
+isbn = {9781509026555},
+pages = {522--528},
+title = {{Xevdriver: A software system supporting XML-based source-to-source code transformations on Fortran programs}},
+year = {2017}
+}
+@article{Trudel2012a,
+abstract = {Can we reuse some of the huge code-base developed in C to take advantage of modern programming language features such as type safety, object-orientation, and contracts? This paper presents a source-to-source translation of C code into Eiffel, a modern object-oriented programming language, and the supporting tool C2Eif. The translation is completely automatic and supports the entire C language (ANSI, as well as many GNU C Compiler extensions, through CIL) as used in practice, including its usage of native system libraries and inlined assembly code. Our experiments show that C2Eif can handle C applications and libraries of significant size (such as vim and libgsl), as well as challenging benchmarks such as the GCC torture tests. The produced Eiffel code is functionally equivalent to the original C code, and takes advantage of some of Eiffel's features to produce safe and easy-to-debug translations.},
+archivePrefix = {arXiv},
+arxivId = {1206.5648},
+author = {Trudel, Marco and Furia, Carlo A. and Nordio, Martin and Meyer, Bertrand and Oriol, Manuel},
+doi = {10.1109/WCRE.2012.12},
+eprint = {1206.5648},
+file = {:Users/andrejermak/Downloads/1206.5648.pdf:pdf},
+isbn = {9780769548913},
+issn = {10951350},
+journal = {Proceedings - Working Conference on Reverse Engineering, WCRE},
+number = {April},
+pages = {19--28},
+title = {{C to O-O translation: Beyond the easy stuff}},
+year = {2012}
+}
+@article{Ducournau2009,
+abstract = {Object-oriented languages involve a threefold tradeoff between runtime efficiency, expressiveness (multiple inheritance), and modularity, i.e. open-world assumption (OWA). Runtime efficiency is conditioned by both the implementation technique and compilation scheme. The former specifies the data structures that support method invocation, attribute access and subtype testing. The latter consists of the production line of an executable from the source code. Many implementation techniques have been proposed and several compilation schemes can be considered from fully global compilation under the closed-world assumption (CWA) to separate compilation with dynamic loading under the OWA, with midway solutions. This article reviews a significant subset of possible combinations and presents a systematic, empirical comparison of their respective efficiencies with all other things being equal. The testbed consists of the Prm compiler that has been designed for this purpose. The considered techniques include C++ subobjects, coloring, perfect hashing, binary tree dispatch and caching. A variety of processors were considered. Qualitatively, these first results confirm the intuitive or theoretical abstract assessments of the tested approaches. As expected, efficiency increases as CWA strengthens. From a quantitative standpoint, the results are the first to precisely compare the efficiency of techniques that are closely associated with specific languages like C++ and Eiffel. They also confirm that perfect hashing should be considered for implementing Java and .Net interfaces. },
+author = {Ducournau, Roland and Morandat, Flor'eal and Privat, Jean},
+doi = {10.1145/1640089.1640093},
+file = {:Users/andrejermak/Downloads/RD-FM-JP-OOPSLA09.pdf:pdf},
+isbn = {978-1-60558-766-0},
+issn = {03621340},
+journal = {Proceedings of the 24th ACM SIGPLAN Conference on Object Oriented Programming Systems Languages and Applications},
+keywords = {binary tree dispatch,closed-world assumption,coloring,downcast,dynamic loading,interfaces,late binding,method tables,multiple inheritance,multiple subtyping,open-world assumption,perfect hashing,single inheritance,subtype test,type analysis,virtual function table},
+number = {March 2014},
+pages = {41--60},
+title = {{Empirical Assessment of Object-oriented Implementations with Multiple Inheritance and Static Typing}},
+url = {http://doi.acm.org/10.1145/1640089.1640093},
+year = {2009}
+}
+@misc{toalray2017,
+author = "Toal, Ray",
+title = "Intermediate Representations",
+howpublished = {\url{http://cs.lmu.edu/$\sim$~ray/notes/ir/}},
+note={Accessed: 09-28-2017}
+}
+@misc{wikiAST,
+title = "Abstract syntax tree, Accessed: 09-28-2017",
+howpublished={\url{https://en.wikipedia.org/wiki/Abstract_syntax_tree}}
+}
+@misc{wikiCFG,
+title = "Control flow graph, Accessed: 09-28-2017",
+howpublished={\url{https://en.wikipedia.org/wiki/Control_flow_graph}}
+}
+@misc{LLVM_features,
+title = "LLVM features page, Accessed: 09-28-2017",
+howpublished={\url{https://llvm.org/Features.html}}
+}
+@misc{GNU,
+title = "GNU official site, Accessed: 09-28-2017",
+howpublished={\url{https://gcc.gnu.org}}
+}
+@misc{UMDIR,
+title = "Lectures slides from site of University of Maryland, CMSC 430: Theory of Language Translation, Accessed: 09-28-2017",
+howpublished={\url{https://www.cs.umd.edu/~mvz/cmsc430-s07/M11ir.pdf}}
+}
+@misc{GlasgowHaskellCompiler,
+title = "Site of Glasgow Haskell Compiler",
+howpublished={\url{https://ghc.haskell.org/trac/ghc/wiki/TeamGHC}}
+}
+@misc{CLangAST,
+title = "Clang AST documentation",
+howpublished={\url{http://clang.llvm.org/docs/IntroductionToTheClangAST.html}}
+}
+@misc{CLangDoc,
+title = "Clang documentation",
+howpublished={\url{http://clang.llvm.org/docs/UsersManual.html}}
+}
+@misc{GCCback,
+title = "GCC Backends support",
+howpublished={\url{https://gcc.gnu.org/backends.html}}
+}
+@misc{LLVM_manual,
+title = "LLVM manual page",
+howpublished={\url{https://llvm.org/docs/LangRef.html}}
+}
+@misc{GIMPLE,
+title = "GIMPLE description page",
+howpublished={\url{https://gcc.gnu.org/wiki/GIMPLE}}
+}
+@misc{Elbrus,
+title = "Elbrus architecture",
+howpublished={\url{http://www.elbrus.ru/elbrus_arch}}
+}
+@misc{SSA_wiki,
+title = "SSA description on wikipedia.org",
+howpublished={\url{https://en.wikipedia.org/wiki/Static_single_assignment_form}}
+}
+@misc{RTL_wiki,
+title = "RTL description on wikipedia.org",
+howpublished={\url{https://en.wikipedia.org/wiki/Register_transfer_language}}
+}
+@misc{GCC_optimizations,
+title = "Optimizations in GCC compiler. Web documentation.",
+howpublished={\url{https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html}
+}}
+@misc{Non_AST_compilers,
+title = "Tutorial on how to build an assembly language compiler that does not use AST",
+howpublished={\url{https://compilers.iecc.com/crenshaw/}
+}}
+@ARTICLE {markheffernankentwilken2005,
+    author  = "Mark Heffernan, Kent Wilken",
+    title   = "Data-Dependency Graph Transformations for Instruction Scheduling",
+    journal = "Journal of Scheduling",
+    year    = "2005",
+    pages   = "427-451",
+    month   = "oct"
+}
+@incollection{,
+doi = {10.3109/13697137.2010.550973},
+file = {:Users/andrejermak/Downloads/ooc.pdf:pdf},
+isbn = {3446174265},
+issn = {1369-7137},
+number = {3},
+pages = {384--391},
+pmid = {21413862},
+title = {{Object oriented programming with ANSI-C}},
+url = {http://www.tandfonline.com/doi/full/10.3109/13697137.2010.550973},
+volume = {14},
+year = {2011}
+}
+@article{Necula2002,
+abstract = {This paper describes the CIntermediate Language: a high- level representation along with a set of tools that permit easy analysis and source-to-source transformation of C programs. Compared to C, CIL has fewer constructs. It breaks down certain com- plicated constructs of C into simpler ones, and thus it works at a lower level than abstract-syntax trees. But CIL is also more high-level than typical intermediate languages (e.g., three-address code) designed for compilation. As a result, what we have is a representation that makes it easy to analyze and manipulate C programs, and emit them in a form that resembles the original source. Moreover, it comes with a front-end that translates to CIL not only ANSI C programs but also those using Microsoft C or GNU C extensions. We describe the structure of CIL with a focus on how it disambiguates those features of C that we found to be most confusing for program anal- ysis and transformation.We also describe a whole-program merger based on structural type equality, allowing a complete project to be viewed as a single compilation unit. As a representative application of CIL, we show a transformation aimed at making code immune to stack-smashing at- tacks. We are currently using CIL as part of a system that analyzes and instruments C programs with run-time checks to ensure type safety. CIL has served us very well in this project, and we believe it can usefully be applied in other situations as well.},
+author = {Necula, George C. and McPeak, Scott and Rahul, Shree P. and Weimer, Westley},
+doi = {10.1007/3-540-45937-5_16},
+file = {:Users/andrejermak/Downloads/cil{\_}cc02-2.pdf:pdf},
+isbn = {3540433694},
+issn = {16113349},
+journal = {Lecture Notes in Computer Science (including subseries Lecture Notes in Artificial Intelligence and Lecture Notes in Bioinformatics)},
+pages = {213--228},
+title = {{CIL: Intermediate language and tools for analysis and transformation of C programs}},
+url = {https://people.eecs.berkeley.edu/{~}necula/Papers/cil{\_}cc02.pdf},
+volume = {2304},
+year = {2002}
+}
+@book{Schreiner2011,
+author = {Schreiner, Axel},
+isbn = {978-1105105685},
+pages = {223},
+title = {{Object oriented programming with ANSI-C}},
+year = {2011}
+}

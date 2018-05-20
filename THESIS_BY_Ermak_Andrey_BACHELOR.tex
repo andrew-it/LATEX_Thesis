@@ -1,0 +1,158 @@
+%\documentclass[twoside]{report}
+\documentclass[10pt, twoside]{report}
+
+%%%%% ADDED TO SUPPORT TT BOLD FACES %%%%
+\DeclareFontShape{OT1}{cmtt}{bx}{n}{<5><6><7><8><9><10><10.95><12><14.4><17.28><20.74><24.88>cmttb10}{}
+\renewcommand{\ttdefault}{pcr}
+%%%%% END %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\usepackage{atbegshi,picture}
+\AtBeginShipout{\AtBeginShipoutUpperLeft{%
+  \put(\dimexpr\paperwidth-1cm\relax,-1.5cm){\makebox[0pt][r]{\includegraphics[width=3cm]{figs/inno.png}}}%
+}}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[russian, english]{babel}
+\usepackage{blindtext}
+
+\newenvironment{bottompar}{\par\vspace*{\fill}}{\clearpage}
+
+\usepackage{cite}
+\usepackage{amsmath,amsfonts}
+
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\theoremstyle{remark}
+\newtheorem*{example}{Example}
+
+
+\usepackage{pdfpages}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{multirow,array}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{hyperref}
+\usepackage{paralist}
+\usepackage{listings}
+\usepackage{zed-csp}
+\usepackage{fancyheadings}
+\usepackage{color}
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+\definecolor{orange}{rgb}{1.0,0.64,0}
+
+\usepackage{upgreek} 
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{setspace}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage[font=singlespacing, labelfont=bf]{caption}
+
+
+\usepackage{enumitem}
+\newlist{inlinelist}{enumerate*}{1}
+\setlist*[inlinelist,1]{%
+  label=(\arabic*),
+}
+
+\usepackage{listings}
+
+
+\pagestyle{fancyplain}
+
+% remember section title
+\renewcommand{\chaptermark}[1]%
+	{\markboth{\chaptername~\thechapter~--~#1}{}}
+
+% subsection number and title
+\renewcommand{\sectionmark}[1]%
+	{\markright{\thesection\ #1}}
+
+\rhead[\fancyplain{}{\bf\leftmark}]%
+      {\fancyplain{}{\bf\thepage}}
+\lhead[\fancyplain{}{\bf\thepage}]%
+      {\fancyplain{}{\bf\rightmark}}
+\cfoot{} %bfseries
+
+
+\newcommand{\dedication}[1]
+   {\thispagestyle{empty}
+     
+   \begin{flushleft}\raggedleft #1\end{flushleft}
+}
+
+\graphicspath{ {figs/} }
+
+\usepackage{xcolor}
+
+\colorlet{punct}{red!60!black}
+\definecolor{delim}{RGB}{20,105,176}
+\colorlet{numb}{magenta!60!black}
+
+\lstdefinelanguage{json}{
+    basicstyle=\normalfont\ttfamily,
+    numbers=left,
+    numberstyle=\scriptsize,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    breaklines=true,
+    frame=lines,
+    literate=
+     *{0}{{{\color{numb}0}}}{1}
+      {1}{{{\color{numb}1}}}{1}
+      {2}{{{\color{numb}2}}}{1}
+      {3}{{{\color{numb}3}}}{1}
+      {4}{{{\color{numb}4}}}{1}
+      {5}{{{\color{numb}5}}}{1}
+      {6}{{{\color{numb}6}}}{1}
+      {7}{{{\color{numb}7}}}{1}
+      {8}{{{\color{numb}8}}}{1}
+      {9}{{{\color{numb}9}}}{1}
+      {:}{{{\color{punct}{:}}}}{1}
+      {,}{{{\color{punct}{,}}}}{1}
+      {\{}{{{\color{delim}{\{}}}}{1}
+      {\}}{{{\color{delim}{\}}}}}{1}
+      {[}{{{\color{delim}{[}}}}{1}
+      {]}{{{\color{delim}{]}}}}{1},
+}
+
+\begin{document}\sloppy
+\includepdf[pages=-]{chapters/BST.pdf}
+% \include{title}
+
+\tableofcontents
+% \listoftables
+% \listoffigures
+
+\include{chapters/abstract}
+\setcounter{page}{2}
+
+\include{chapters/chapter1}
+\include{chapters/chapter2}
+\include{chapters/chapter3}
+\include{chapters/chapter4}
+\include{chapters/chapter5}
+\include{chapters/chapter6}
+\include{chapters/application}
+
+%% REFERENCES
+
+\bibliography{my_thesis} 
+\bibliographystyle{ieeetr}
+% \include{chapters/appex}
+\end{document}
+

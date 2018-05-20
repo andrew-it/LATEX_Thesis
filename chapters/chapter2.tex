@@ -1,0 +1,84 @@
+\chapter{Literature Review}
+\label{chap:lr}
+\chaptermark{Literature Review Heading}
+
+The purpose of this thesis is to develop an approach to code generation from SLang programming language to some target platform and to implement it. The C language was chosen as the target platform because of it is wide distribution.
+
+It is, basically, quite a complicated task that is subject to complex and differentiated approaches, consisting of many problems. Some of them include translating basic semantic notions and expressions from Slang to C, as well as object-oriented programming issues that lay quite far from trivial, with C being a procedural, not an object-oriented language. To get more familiar with this area of research, a literature review was performed.
+
+It seems logical to divide this global task into several smaller ones:
+\begin{itemize}
+\item Code generation issues --- the key part of this thesis and therefore the area that deserves the most attention.
+\item Intermediate Representation --- also a part of the thesis, so the approaches to it should be considered as well.
+\item Object-Oriented Programming --- quite complicated and interesting task -- to implement OOP paradigm in an imperative-only programming language like C.
+\end{itemize}
+
+\section{Code generation issues}
+
+The first thing in desperate need to be discussed is code generation, as it what needs to in the course of the thesis.
+
+In this thesis, code generation is a process of generating source code from the intermediate representation, which means the translation from semantic blocks of one language to another.
+
+The problems of code generation were considered in some papers which are related to source-to-source code generation. For instance, three main techniques applicable for the task are explored in a work by Lossing et al.\cite{Lossing2016}:
+\begin{enumerate}
+    \item ``To move the declaration at the main scope level.''
+    \item ``To mimic a conventional binary compiler and to transform typedef and declaration  statements  into  memory  operations,  which  is,  for  instance, performed in Clang.''
+    \item ``To extend def-use chains and data dependence graphs to encompass effects on the environment and the mapping defining named types.''
+\end{enumerate}
+
+Besides, authors were devoted to optimization of control flow graphs \cite{wikiCFG} for source-to-source code generation. They justified the choice to make a   source-to-source compiler for C, because of portability and stability of the language that allows for easier maintenance.
+
+Lossing et al. also discuss suitability and problems of Data Dependence Graphs \cite{markheffernankentwilken2005} for source-to-source compilation, as well as suggest several workarounds for problems related to working with memory. however, this approach does not cover all the language use cases,   and because of this, authors suggest a solution called Effects dependence graph, which is ``an extension of the Data Dependence Graph taking into account the environment and the type declaration functions.''
+
+Another approach to the problem is performing code transformation using AST\cite{wikiAST} representation. There is a toolset that implements that approach based on the Xevolver framework. The critical feature of the project is said to be ``code transformations based on the analyzed syntax of the target code, rather than just a text level transformations such as C preprocessor''\cite{Suda2017}.
+
+This tool provides several kinds of abstractions for code transformation framework:
+\begin{itemize}
+\item ``an abstract view of temporary files.''
+\item ``an abstract view of combinations of code transformations.''
+\item ``a viewer that incorporates the above two kinds of abstractions.''
+\end{itemize}
+
+Based on the facts mentioned above, it is clear that some existing approaches and tools are allowing to solve the task of code generation and specifically source-to-source translation, and are possible to use to implement the proposed system.
+
+\section{Intermediate Representation}
+The intermediate representation is a way to represent source code in the form of a data structure or IR code, which keeps the semantics of the program. An IR is allowed to perform code optimization and easier translation for a target platform.
+
+As mentioned above, there are several approaches to representing the source code, and one of them is a   graph-based IR which very closely resembles Control Flow Graph. Click and Paleczny described such kind of implementation in 1995 \cite{Click1995}. Here, the Petri networks are used to make a model. As the result of that work, authors achieve 6.3\% faster compile time using the described approach.
+
+Based on the materials of the paper mentioned above, now it is clear that it is possible to implement intermediate representation with use of the control flow graph.
+
+\section{Object Oriented Programming}
+
+OOP is a widely used paradigm, and SLang also implements it. 
+It is an entirely exciting and complicated task to implement it in a procedural language like C.
+
+Here are some materials that describe the approaches how OOP can be implemented in C language. The first one \cite{Ducournau2009} describes several implementation techniques of OOP, such as:
+
+\begin{itemize}
+\item Single   Subtyping
+\item Subobjects   (SO)
+\item Coloring   (MC/AC)
+\item Binary   Tree   Dispatch   (BTD)
+\item Perfect   Hashing   (PH)
+\item Incremental   Coloring   (IC)
+\item Accessor   Simulation   (AS)
+\item Caching   and   Searching   (CA)
+\end{itemize}
+Another paper \cite{Trudel2012a} is devoted to description and analysis of several tools for translating C to some OO languages like Eiffel, C\# or Java. The main idea here is to demonstrate advantages of translating C to Eiffel with C2Eiffel tool. Furthermore, internal work of this tool is described, so it seems to be convenient for the thesis topic.
+
+The most exciting part of this section is the ``Object-oriented programming with ANSI-C'' book \cite{Schreiner2011}.
+It is like a cookbook of OOP in C, which describes the process of implementing OOP in C very clearly and in details.
+There are many references to this book in scientific papers and on the internet.
+
+Using materials of this book, it is possible to dig deep into details and nuances of object-oriented programming in C.
+
+\section{Conclusion and next steps}
+
+In the course of performing this literature overview, the key concepts related to this thesis were considered, the vision of situation was formed, and the next steps are suggested:
+\begin{enumerate}
+    \item Create the design of IR
+    \item Write AST-parser to IR
+    \item Write module that converts IR to target programming language
+    \item Implement the OOP part
+\end{enumerate}

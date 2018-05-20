@@ -1,0 +1,460 @@
+\chapter{Application}
+\label{chap:application}
+
+\begin{lstlisting}[caption={Class declaration in C}, label={lst:C_class_decl}]
+/* ---------------- Shape.h ---------------- */
+
+/* Shape's attributes... */ 
+typedef struct {
+    int16_t x; /* x-coordinate of Shape's position */
+    int16_t y; /* y-coordinate of Shape's position */ 
+} Shape;
+
+/* Shape's operations (Shape's interface)... */
+void Shape_ctor(Shape * const me, int16_t x, int16_t y); 
+void Shape_moveBy(Shape * const me, int16_t dx, int16_t dy);
+
+/* ---------------- Shape.c ---------------- */
+
+/* constructor */
+void Shape_ctor(Shape * const me, int16_t x, int16_t y) {
+    me->x = x;
+    me->y = y; 
+}
+/* move-by operation */
+void Shape_moveBy(Shape * const me, int16_t dx, int16_t dy) {
+    me->x += dx;
+    me->y += dy; 
+}
+
+/* Creating objects */ 
+int main() {
+    Shape s1, s2; /* multiple instances of Shape */
+    Shape_ctor(&s1, 0, 1);
+    Shape_ctor(&s2, -1, 2); 
+    Shape_moveBy(&s1, 2, -4);
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Inheritance in C}, label=lst:C_inheritance]
+#include "Shape.h"
+/* ---------------- Rectangle.h ---------------- */
+
+typedef struct {
+    Shape super; /* <== inherits Shape */ 
+    /* attributes added by this subclass... */ 
+    uint16_t width;
+    uint16_t height;
+} Rectangle;
+
+/* constructor */
+void Rectangle_ctor(Rectangle * const me, 
+                    int16_t x, int16_t y, 
+                    uint16_t width, uint16_t height);
+
+/* ---------------- Rectangle.c ---------------- */
+void Rectangle_ctor(Rectangle * const me, int16_t x, int16_t y,
+uint16_t width, uint16_t height) 
+{
+    /* first call superclass ctor */
+    Shape_ctor(&me->super, x, y);
+
+    /* next, you initialize the attributes added by this subclass... */ 
+    me->width = width;
+    me->height = height;
+}
+
+/* Creating objects */ 
+int main() {
+    Rectangle r1, r2;
+    /* instantiate rectangles... */ 
+    Rectangle_ctor(&r1, 0, 2, 10, 15); 
+    Rectangle_ctor(&r2, -1, 3, 5, 8);
+    /* re-use inherited function from the superclass Shape... */ 
+    Shape_moveBy((Shape *)&r1, -2, 3);
+    Shape_moveBy(&r2->super, 2, -1);
+}
+\end{lstlisting}
+
+
+\begin{lstlisting}[caption={Shape virtual table}, label={lst:Shapt_virt_table}]
+struct ShapeVtbl {
+    uint32_t ( area* )(Shape * const me); 
+    void ( draw* )(Shape * const me);
+};
+\end{lstlisting}
+
+
+\begin{lstlisting}[caption={Adding virtual pointer to Shape class}, label={lst:Shapt_virt_pointer}]
+struct ShapeVtbl; /* forward declaration */ 
+typedef struct {
+    struct ShapeVtbl const *vptr; /* <= Shape's vptr */
+    int16_t x;
+    int16_t y;
+} Shape;
+\end{lstlisting}
+
+
+\begin{lstlisting}[caption={Defining the virtual table and initializing the virtual pointer}, label={lst:Shape_vtbl_vptr}]
+/* Shape class implementation of its virtual functions... */ 
+static uint32_t Shape_area_(Shape * const me);
+static void Shape_draw_(Shape * const me);
+/* constructor */
+void Shape_ctor(Shape * const me, int16_t x, int16_t y) {
+    static struct ShapeVtbl const vtbl = { 
+        &Shape_area_,
+        &Shape_draw_
+    };
+    me->vptr = &vtbl; /* "hook" the vptr to the vtbl */
+
+    me->x = x;
+    me->y = y; 
+}
+\end{lstlisting}
+
+
+\begin{lstlisting}[caption={Defining purely virtual functions}, label={lst:Pure_virt}]
+/* Shape class implementations of its virtual functions... */ 
+static uint32_t Shape_area_(Shape * const me) {
+    ASSERT(0); /* purely-virtual function should never be called */
+    return 0; /* to avoid compiler warnings */ 
+}
+    
+static void Shape_draw_(Shape * const me) {
+    ASSERT(0); /* purely-virtual function should never be called */
+}
+\end{lstlisting}
+
+\lstset{
+  language=json,
+  breaklines=true,
+  frame=L,
+  basicstyle=\footnotesize\ttfamily,
+  morekeywords={version, language, patterns, dependencies, standard_types, standard_functions}
+}
+
+\begin{lstlisting}[caption={Patterns JSON file for C language}, label={lst:Json_patterns}]
+{
+  "version": 0.1,
+  "language": "C",
+  "patterns": {
+    "STR_VAR": {
+      "pattern": "\""
+    },
+    "CHAR_VAR": {
+      "pattern": "'"
+    },
+    "LOOP": {
+      "pattern": "for(INITIAL_STATE, WHILE_CONDITION, STEP_EXPR){BODY}"
+    },
+    "IF_CONDITION": {
+      "pattern": "if(CONDITION){\nBODY\n}"
+    },
+    "ELSE_CONDITION": {
+      "pattern": "else{\nBODY\n}"
+    },
+    "ELIF_CONDITION": {
+      "pattern": "else if(CONDITION){BODY}"
+    },
+    "TERNARY": {
+      "pattern": "CONDITION?TRUE:FALSE;"
+    },
+    "FUNC_DECL": {
+      "signature_delimiter": ",",
+      "pattern": "\nRET_TYPE FUNC_NAME(SIGNATURE){\nBODY\n}"
+    },
+    "ENTRY_POINT": {
+      "signature_delimiter": ",",
+      "pattern": "\nRET_TYPE FUNC_NAME(SIGNATURE){\nBODY\n}"
+    },
+    "FUNC_CALL": {
+      "signature_delimiter": ",",
+      "pattern": "FUNC_NAME(PARAMS);"
+    },
+    "SIG_PARAM": {
+      "pattern": "RET_TYPE VAR_NAME"
+    },
+    "SIG_PARAM_POINTER": {
+      "pattern": "RET_TYPE *VAR_NAME"
+    },
+    "SIG_PARAM_CONST_POINTER": {
+      "pattern": "RET_TYPE *const VAR_NAME"
+    },
+    "VAR_DECL": {
+      "pattern": "RET_TYPE VAR_NAME;"
+    },
+    "VAR_DECL_POINTER": {
+      "pattern": "RET_TYPE *VAR_NAME;"
+    },
+    "VAR_ASSIGNMENT": {
+      "pattern": "VAR_NAME = VALUE;"
+    },
+    "EMPTY_OPERATOR": {
+      "operator": ";"
+    },
+    "DEPENDENCY": {
+      "pattern": "#include <LIB>"
+    },
+    "VAL_STR": {
+      "pattern": "\"VALUE\""
+    },
+    "VAL_INT": {
+      "pattern": "VALUE"
+    },
+    "HEADER_FILE": {
+      "pattern": "#ifndef TYPE_ALIAS_H\n#define TYPE_ALIAS_H\ntypedef struct {\nMEMBER_DECLARATIONS\n} TYPE_ALIAS; FUNCTION_PROT_DECLARATIONS\n#endif"
+    },
+    "CLASS_DECL": {
+      "pattern": "#include \"TYPE_ALIAS.h\"\nFUNCTION_DECLARATIONS"
+    },
+    "FUNC_PROTOTYPE": {
+      "signature_delimiter": ",",
+      "pattern": "\nRET_TYPE FUNC_NAME(SIGNATURE);"
+    },
+    "FUNC_RETURN": {
+      "pattern": "return VAR_NAME;"
+    },
+    "SYMBOLIC_SEQ": {
+      "pattern": "VALUE"
+    },
+    "ONE_STRING_COMMENT": {
+      "pattern": "// VALUE"
+    }
+  },
+  "dependencies": {
+    "stdio.h": ["printf", "scanf"],
+    "sthlib.h": ["sth"]
+  },
+  "standard_types": {
+    "STRING": "char*",
+    "INT": "int",
+    "REAL": "float",
+    "CHAR": "char",
+    "VOID": "void"
+  },
+  "standard_functions": {
+    "console_out": {
+      "name": "printf",
+      "str": "%s",
+      "int": "%d"
+    },
+    "console_in": {
+      "name": "scanf",
+      "str": "%s",
+      "int": "%d"
+    }
+  }
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Patterns JSON file for JavaScript language}, label={lst:Json_JS_patterns}]
+{
+  "version": 0.1,
+  "language": "JavaScipt",
+  "patterns": {
+    "STR_VAR": {
+      "pattern": "\""
+    },
+    "CHAR_VAR": {
+      "pattern": "'"
+    },
+    "LOOP": {
+      "pattern": "for(INITIAL_STATE, WHILE_CONDITION, STEP_EXPR){BODY}"
+    },
+    "IF_CONDITION": {
+      "pattern": "if(CONDITION){\nBODY\n}"
+    },
+    "ELSE_CONDITION": {
+      "pattern": "else{\nBODY\n}"
+    },
+    "ELIF_CONDITION": {
+      "pattern": "else if(CONDITION){BODY}"
+    },
+    "TERNARY": {
+      "pattern": "CONDITION?TRUE:FALSE;"
+    },
+    "FUNC_DECL": {
+      "signature_delimiter": ",",
+      "pattern": "function FUNC_NAME(SIGNATURE){BODY}"
+    },
+    "ENTRY_POINT": {
+      "signature_delimiter": ",",
+      "pattern": "BODY"
+    },
+    "FUNC_CALL": {
+      "signature_delimiter": ",",
+      "pattern": "FUNC_NAME(PARAMS)"
+    },
+    "SIG_PARAM": {
+      "pattern": "VAR_NAME"
+    },
+    "SIG_PARAM_POINTER": {
+      "pattern": "VAR_NAME"
+    },
+    "SIG_PARAM_CONST_POINTER": {
+      "pattern": "VAR_NAME"
+    },
+    "VAR_DECL": {
+      "pattern": "var VAR_NAME;"
+    },
+    "VAR_DECL_POINTER": {
+      "pattern": "var VAR_NAME;"
+    },
+    "VAR_ASSIGNMENT": {
+      "pattern": "VAR_NAME = VALUE;"
+    },
+    "EMPTY_OPERATOR": {
+      "operator": ";"
+    },
+    "DEPENDENCY": {
+      "pattern": "# LIB"
+    },
+    "VAL_STR": {
+      "pattern": "\"VALUE\""
+    },
+    "VAL_INT": {
+      "pattern": "VALUE"
+    },
+    "HEADER_FILE": {
+      "pattern": "var TYPE_ALIAS = {MEMBER_DECLARATIONS\nFUNCTION_PROT_DECLARATIONS\n};"
+    },
+    "CLASS_DECL": {
+      "pattern": "# TYPE_ALIAS | FUNCTION_DECLARATIONS"
+    },
+    "FUNC_PROTOTYPE": {
+      "signature_delimiter": ",",
+      "pattern": "# FUNC_NAME | SIGNATURE)"
+    }
+  },
+  "dependencies": {},
+  "standard_types": {
+    "STRING": "",
+    "INT": "",
+    "REAL": "",
+    "CHAR": "",
+    "VOID": ""
+  },
+  "standard_functions": {
+    "console_out": {
+      "name": "console.log",
+      "str": "%s",
+      "int": "%d"
+    },
+    "console_in": {
+      "name": "scanf",
+      "str": "%s",
+      "int": "%d"
+    }
+  }
+}
+\end{lstlisting}
+
+
+\begin{lstlisting}[caption={C make file pattern}, label={lst:C_make}]
+CC=g++
+CFLAGS=-c -Wall
+LDFLAGS=
+SOURCES=LIST_OF_SOURCES
+OBJECTS=$(SOURCES:.cpp=.o)
+EXECUTABLE=EXECUTABLE_NAME
+
+all: $(SOURCES) $(EXECUTABLE)
+	
+$(EXECUTABLE): $(OBJECTS) 
+	$(CC) $(LDFLAGS) $(OBJECTS) -o $@
+
+.cpp.o:
+	$(CC) $(CFLAGS) $< -o $@
+\end{lstlisting}
+\lstset{
+  language=C,
+  basicstyle=\tiny,
+  breaklines=true,
+  numbers=none,
+  frame=none,
+  morekeywords={in, loop, end, unit, extend, override, Integer}
+}
+\begin{center}
+\begin{tabular}{ | l | l | } \hline
+SLang & Patterns \\ \hline
+% CONDITION
+\begin{lstlisting}
+if CONDITION then
+    // condition_true body
+else
+    // condition_false body
+end
+\end{lstlisting} & 
+\begin{lstlisting}
+if(CONDITION) {
+    // condition_true body    
+}
+else {
+    // condition_false body
+}
+\end{lstlisting} \\ \hline
+
+% LOOP
+\begin{lstlisting}
+while ELEMENT in COLLECTION loop
+    // loop body
+end
+\end{lstlisting} & 
+\begin{lstlisting}
+for(; ELEMENT != null; COLLECTION.next()){
+    // loop body
+    // where ELEMENT is sth like:
+    // COLLECTION.getCurrentElement()
+}
+\end{lstlisting} \\ \hline
+
+% CLASS
+\begin{lstlisting}
+unit Base
+    x: Integer
+    foo()
+end
+\end{lstlisting} & 
+\begin{lstlisting}
+typedef struct {
+    int x;
+} Base;
+void Base_foo(Base* self){}
+\end{lstlisting} \\ \hline
+
+% INHERITANCE
+\begin{lstlisting}
+unit Derived extend Base, Base2
+    y: Integer
+    override foo()
+end
+\end{lstlisting} & 
+\begin{lstlisting}
+typedef struct {
+    Base super;
+    Base2 super2;
+    int y;
+} Derived;
+Derived_foo(Derived* self){}
+\end{lstlisting} \\ \hline
+
+% NESTED FUNCTIONS
+\begin{lstlisting}
+foo(i: Integer) is
+    boo(j: Integer, i: Integer) is 
+        System.IO.print(i+j)
+    end boo
+    boo(1, i)
+end foo
+\end{lstlisting} & 
+\begin{lstlisting}
+void foo(int i) {
+    void boo(int j, int i);
+    boo(1, i);
+}
+void boo(int j, int i){
+    printf("%d", i+j);
+}
+\end{lstlisting} \\ \hline
+\end{tabular}
+\end{center}

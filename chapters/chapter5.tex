@@ -1,0 +1,30 @@
+\chapter{Evaluation and Discussion}
+\label{chap:eval}
+
+\section{Immediate future work}
+Potentially, the translator could be expanded with the following features:
+\begin{itemize}
+    \item Functional programming support;
+    \item Contracts support;
+    \item Full OOP support;
+    \item Lambda functions support;
+    \item Multiline comments support;
+    \item Also, it is necessary to implement the AST parser for the translator, which would build the internal representation of a program according to its AST, to facilitate optimizations. Since the architecture is built with this future feature in mind, it should be relatively easy to implement the parser and merge it into the translator;
+    \item An extensive CLI for the translator, with command line arguments;
+    \item Nested functions;
+\end{itemize}
+
+
+\section{Possible problems}
+In this kind of translator software, the problem of standard typing occupies a special place. The point is, supposedly similar standard types of different programming languages can differ in structure, logic, or size.
+For example, integer types can be 8 bit, 32 bit, or, say, arbitrarily long. They can also have different behavior upon overflow (either overflowing or panicking) or different bitwise structure. Surely this makes for different integers.
+An even brighter example is a string. A string can be just a char array or an object; it can contain ASCII chars, Unicode chars, or valid UTF8 (multibyte chars); it can be zero-terminated, zero-prohibitive or zero-permissive, and also mutable or immutable. The differences can be so vast that there is often a need to create a custom string structure in a target language to represent strings from the source language.
+More globally, this can also refer to type mutability, or to questions whether a given instance is allocated on stack or in a heap, whether a given type is passed by value or by reference, and whether an object can be used only once or infinitely. Another interesting question is the average complexity of operations on resulting types which had also better be preserved. All these issues are what make the task of mapping type systems of different programming languages not entirely straightforward.
+The aforementioned pattern system allows changing the mapped target language standard types quickly, which will help significantly to achieve full type compatibility.
+
+\section{Proposed improvements and additions}
+\begin{itemize}
+    \item Over the course of translator implementation, there was an idea to adjust the translator architecture for C as the main target language. This kind of architecture would allow for more subtle optimizations for the target language, but also would restrict the adjustment to other languages while at the same time drastically increasing the complexity of the solution.
+    \item Code generation into Python. The most special syntactic feature of the language is denoting the scopes with indentation. Due to a recursive way of target source code construction, it is possible to add indents according to recursion depth. This way, it is possible both to generate valid Python code and beautify code in other languages.
+    \item For now, the translator makes no distinction between notions of expression and statement, which may negatively affect the translation. For example, now it is not yet possible to facilitate nested function calls. In the future, the addition of the difference between notions is necessary.
+\end{itemize}
